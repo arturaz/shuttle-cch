@@ -209,6 +209,7 @@ name = "cch23-arturaz"
 version = "0.1.0"
 dependencies = [
  "axum",
+ "ordered-float",
  "serde",
  "shuttle-axum",
  "shuttle-runtime",
