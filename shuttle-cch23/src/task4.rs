@@ -1,9 +1,8 @@
 use serde::{Deserialize, Serialize};
 use axum::Json;
-use ordered_float::OrderedFloat;
 
 #[derive(Deserialize)]
-struct Task4Input {
+pub struct Task4Input {
   name: String,
   strength: i64,
 }
@@ -16,7 +15,7 @@ pub async fn task_4(
 }
 
 #[derive(Deserialize)]
-struct Task4_1Input {
+pub struct Task4_1Input {
   name: String,
   strength: i64,
   speed: f64,
@@ -29,7 +28,7 @@ struct Task4_1Input {
 }
 
 #[derive(Serialize)]
-struct Task4_1Output {
+pub struct Task4_1Output {
   fastest: String,
   tallest: String,
   magician: String,
@@ -40,7 +39,7 @@ pub async fn task_4_1(
   Json(data): Json<Vec<Task4_1Input>>
 ) -> Json<Task4_1Output> {
   let fastest =
-    data.iter().max_by_key(|a| OrderedFloat(a.speed)).unwrap();
+    data.iter().max_by(|a, b| a.speed.total_cmp(&b.speed)).unwrap();
   let tallest = data.iter().max_by_key(|a| a.height).unwrap();
   let magician = data.iter().max_by_key(|a| a.snow_magic_power).unwrap();
   let consumer = data.iter().max_by_key(|a| a.candies_eaten_yesterday).unwrap();
