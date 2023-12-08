@@ -45,11 +45,8 @@ impl Task7_1Input {
     let mut left_over = self.pantry.clone();
 
     self.recipe.iter().for_each(|(ingredient, needed)| {
-      match left_over.get(ingredient) {
-        None => {}
-        Some(available) => {
-          left_over.insert(ingredient.clone(), available - cookies * needed);
-        }
+      if let Some(available) = left_over.get(ingredient) {
+        left_over.insert(ingredient.clone(), *available - cookies * needed);
       }
     });
 

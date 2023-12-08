@@ -6,6 +6,7 @@ mod task4;
 mod task6;
 mod task7;
 mod app_error;
+mod task8;
 
 async fn hello_world() -> &'static str {
   "Hello, world!"
@@ -21,7 +22,9 @@ async fn main() -> shuttle_axum::ShuttleAxum {
     .route("/4/contest", post(task4::task_4_1))
     .route("/6", post(task6::task_6))
     .route("/7/decode", get(task7::task_7))
-    .route("/7/bake", get(task7::task_7_1));
+    .route("/7/bake", get(task7::task_7_1))
+    .route("/8/weight/:id", get(task8::task_8))
+    .route("/8/drop/:id", get(task8::task_8_1));
 
   Ok(router.into())
 }
